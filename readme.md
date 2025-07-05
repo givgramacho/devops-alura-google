@@ -1,5 +1,76 @@
 # Imersão DevOps - Alura Google Cloud
 
+## Sumário
+- [Imersão DevOps - Alura Google Cloud](#imersão-devops---alura-google-cloud)
+  - [Sumário](#sumário)
+  - [Sobre o Projeto](#sobre-o-projeto)
+  - [Pré-requisitos](#pré-requisitos)
+  - [Como rodar localmente](#como-rodar-localmente)
+  - [Usando Docker](#usando-docker)
+  - [Usando Docker Compose](#usando-docker-compose)
+  - [Como versionar seu projeto com Git e enviar para o GitHub](#como-versionar-seu-projeto-com-git-e-enviar-para-o-github)
+  - [Estrutura do Projeto](#estrutura-do-projeto)
+  - [Autenticação no Google Cloud](#autenticação-no-google-cloud)
+  - [Deploy no Cloud Run](#deploy-no-cloud-run)
+  - [Mais tutoriais DevOps](#mais-tutoriais-devops)
+
+---
+
+## Sobre o Projeto
+
+Este projeto é uma API desenvolvida com FastAPI para gerenciar alunos, cursos e matrículas em uma instituição de ensino.
+
+## Pré-requisitos
+
+- [Python 3.10 ou superior instalado](https://www.python.org/downloads/)
+- [Git](https://git-scm.com/downloads)
+- [Docker](https://www.docker.com/get-started/)
+
+## Como rodar localmente
+
+1. Clone o repositório:
+   ```sh
+   git clone https://github.com/givgramacho/devops-alura-google.git
+   cd devops-alura-google
+   ```
+2. Crie e ative o ambiente virtual:
+   ```sh
+   python3 -m venv venv
+   source venv/bin/activate  # Linux/Mac
+   # ou
+   venv\Scripts\activate    # Windows
+   ```
+3. Instale as dependências:
+   ```sh
+   pip install -r requirements.txt
+   ```
+4. Execute a aplicação:
+   ```sh
+   uvicorn app:app --reload
+   ```
+5. Acesse a documentação interativa em [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
+
+## Usando Docker
+
+1. Construa a imagem:
+   ```sh
+   docker build -t fastapi-app .
+   ```
+2. Rode o container:
+   ```sh
+   docker run -p 8000:8000 fastapi-app
+   ```
+3. Acesse: [http://localhost:8000/docs](http://localhost:8000/docs)
+
+## Usando Docker Compose
+
+1. Construa e suba os containers:
+   ```sh
+   docker-compose up --build
+   ```
+2. Acesse: [http://localhost:8000/docs](http://localhost:8000/docs)
+
+
 ## Como versionar seu projeto com Git e enviar para o GitHub
 
 1. **Inicialize o repositório Git no diretório do projeto:**
@@ -29,51 +100,6 @@
 
 Este projeto é uma API desenvolvida com FastAPI para gerenciar alunos, cursos e matrículas em uma instituição de ensino.
 
-## Pré-requisitos
-
-- [Python 3.10 ou superior instalado](https://www.python.org/downloads/)
-- [Git](https://git-scm.com/downloads)
-- [Docker](https://www.docker.com/get-started/)
-
-## Passos para subir o projeto
-
-1. **Faça o download do repositório:**
-   [Clique aqui para realizar o download](https://github.com/guilhermeonrails/imersao-devops/archive/refs/heads/main.zip)
-
-2. **Crie um ambiente virtual:**
-   ```sh
-   python3 -m venv ./venv
-   ```
-
-3. **Ative o ambiente virtual:**
-   - No Linux/Mac:
-     ```sh
-     source venv/bin/activate
-     ```
-   - No Windows:
-     ```sh
-     venv\Scripts\activate
-     ```
-
-4. **Instale as dependências:**
-   ```sh
-   pip install -r requirements.txt
-   ```
-
-5. **Execute a aplicação:**
-   ```sh
-   uvicorn app:app --reload
-   ```
-
-6. **Acesse a documentação interativa:**
-
-   Abra o navegador e acesse:  
-   [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
-
-   Aqui você pode testar todos os endpoints da API de forma interativa.
-
----
-
 ## Estrutura do Projeto
 
 - `app.py`: Arquivo principal da aplicação FastAPI.
@@ -83,110 +109,62 @@ Este projeto é uma API desenvolvida com FastAPI para gerenciar alunos, cursos e
 - `routers/`: Diretório com os arquivos de rotas (alunos, cursos, matrículas).
 - `requirements.txt`: Lista de dependências do projeto.
 
----
+O banco de dados SQLite será criado automaticamente como `escola.db` na primeira execução. Para reiniciar o banco, basta apagar o arquivo `escola.db` (isso apagará todos os dados).
 
-- O banco de dados SQLite será criado automaticamente como `escola.db` na primeira execução.
-- Para reiniciar o banco, basta apagar o arquivo `escola.db` (isso apagará todos os dados).
+## Autenticação no Google Cloud
 
----
+Para utilizar recursos do Google Cloud (como Cloud Run, Cloud SQL, Storage, etc.), é necessário autenticar sua conta localmente. Siga os passos abaixo:
 
-## Como rodar a aplicação
-
-### Aula 1. Ambiente local (venv) com variáveis de ambiente
-
-**Arquivos necessários:**
-- `app.py`: Código principal da aplicação FastAPI.
-- `requirements.txt`: Lista de dependências Python.
-
-Esses arquivos devem estar no diretório raiz do projeto. O `requirements.txt` pode ser criado com:
-```sh
-pip freeze > requirements.txt
-```
-O `app.py` deve conter a definição da sua aplicação FastAPI.
-
-**Passos:**
-1. Crie um ambiente virtual:
+1. Instale o Google Cloud SDK: [https://cloud.google.com/sdk/docs/install](https://cloud.google.com/sdk/docs/install)
+2. Faça login na sua conta Google:
    ```sh
-   python3 -m venv venv
+   gcloud auth login
    ```
-2. Ative o ambiente virtual:
-   - No Linux/Mac:
-     ```sh
-     source venv/bin/activate
-     ```
-   - No Windows:
-     ```sh
-     venv\Scripts\activate
-     ```
-3. Instale as dependências:
+3. Selecione o projeto desejado:
    ```sh
-   pip install -r requirements.txt
+   gcloud config set project SEU_ID_DO_PROJETO
    ```
-   ```
-4. Rode a aplicação:
+4. (Opcional) Defina a região padrão:
    ```sh
-   uvicorn app:app --reload
+   gcloud config set compute/region southamerica-east1
    ```
-5. Acesse: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
-
----
-
-### Aula 1.2. Usando apenas Docker
-
-**Arquivos necessários:**
-- `Dockerfile`: Define como a imagem Docker será construída.
-- `app.py` e `requirements.txt`: Devem estar no mesmo diretório do `Dockerfile`.
-
-O `Dockerfile` pode ser criado assim:
-```Dockerfile
-FROM python:3.13.5-alpine3.22
-WORKDIR /app
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-COPY . .
-EXPOSE 8000
-CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
-```
-
-**Passos:**
-1. Construa a imagem:
+5. (Opcional) Defina a zona padrão:
    ```sh
-   docker build -t fastapi-app .
+   gcloud config set compute/zone southamerica-east1-a
    ```
-2. Rode o container:
+6. Verifique se está autenticado:
    ```sh
-   docker run -p 8000:8000 fastapi-app
+   gcloud auth list
    ```
-3. Acesse: [http://localhost:8000/docs](http://localhost:8000/docs)
+7. (Opcional) Autentique para uso em containers/Docker:
+   ```sh
+   gcloud auth configure-docker
+   ```
+
+## Deploy no Cloud Run
+
+1. Faça o build e push da imagem para o Google Container Registry ou Artifact Registry:
+   ```sh
+   docker build -t gcr.io/SEU_ID_DO_PROJETO/fastapi-app:latest .
+   docker push gcr.io/SEU_ID_DO_PROJETO/fastapi-app:latest
+   ```
+2. Faça o deploy no Cloud Run:
+   ```sh
+   gcloud run deploy fastapi-app \
+     --image gcr.io/SEU_ID_DO_PROJETO/fastapi-app:latest \
+     --platform managed \
+     --region southamerica-east1 \
+     --port 8000 \
+     --allow-unauthenticated
+   ```
+   - O parâmetro `--port 8000` garante que o serviço será exposto na porta 8000.
+   - Altere a região se necessário.
+3. Acesse a URL gerada pelo Cloud Run para testar sua API.
+
+## Mais tutoriais DevOps
+
+O tutorial completo de DevOps (incluindo exemplo com Flask, Dockerfile detalhado, push para Artifact Registry, dicas para WSL, etc.) foi movido para o arquivo [TUTORIAL_DEVOPS.md](TUTORIAL_DEVOPS.md). Lá você encontra um passo a passo para iniciantes, cobrindo desde a criação de uma aplicação simples até o deploy na Google Cloud Platform.
 
 ---
 
-### Aula 2. Usando Docker Compose
-
-**Arquivos necessários:**
-- `docker-compose.yml`: Orquestra o(s) serviço(s) Docker.
-- `Dockerfile`, `app.py`, `requirements.txt`: Devem estar no mesmo diretório do `docker-compose.yml`.
-
-O `docker-compose.yml` pode ser criado assim:
-```yaml
-version: "3.8"
-services:
-  app:
-    build: .
-    container_name: fastapi-app
-    ports:
-      - "8000:8000"
-    volumes:
-      - .:/app
-    restart: unless-stopped
-```
-
-**Passos:**
-1. (Opcional) Crie um arquivo `.env` para variáveis de ambiente e o Compose irá carregá-las automaticamente.
-2. Construa e suba os containers:
-   ```sh
-   docker-compose up --build
-   ```
-3. Acesse: [http://localhost:8000/docs](http://localhost:8000/docs)
-
----
+Se encontrar algum erro ou tiver sugestões, abra uma issue ou envie um pull request!
