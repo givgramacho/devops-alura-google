@@ -9,8 +9,9 @@
   - [Usando Docker](#usando-docker)
   - [Usando Docker Compose](#usando-docker-compose)
   - [Como versionar seu projeto com Git e enviar para o GitHub](#como-versionar-seu-projeto-com-git-e-enviar-para-o-github)
+  - [Autenticando no Google Cloud](autenticando-no-google-cloud)
   - [Estrutura do Projeto](#estrutura-do-projeto)
-  - [Autenticação no Google Cloud](#autenticação-no-google-cloud)
+  - [Autenticação no Google Cloud Avançado](#autenticação-no-google-cloud-avançado)
   - [Deploy no Cloud Run](#deploy-no-cloud-run)
   - [Mais tutoriais DevOps](#mais-tutoriais-devops)
 
@@ -99,7 +100,13 @@ Este projeto é uma API desenvolvida com FastAPI para gerenciar alunos, cursos e
    ```
 
 Este projeto é uma API desenvolvida com FastAPI para gerenciar alunos, cursos e matrículas em uma instituição de ensino.
-
+## Autenticando no Google Cloud
+```sh
+gcloud auth login
+## Crie o projeto antes no Google Cloud para obter o Project_ID, mais detalhes na sessão abaixo ## Autenticação no Google Cloud Avançada.
+gcloud config set project PROJECT_ID
+gcloud run deploy --port=8000
+```
 ## Estrutura do Projeto
 
 - `app.py`: Arquivo principal da aplicação FastAPI.
@@ -111,7 +118,7 @@ Este projeto é uma API desenvolvida com FastAPI para gerenciar alunos, cursos e
 
 O banco de dados SQLite será criado automaticamente como `escola.db` na primeira execução. Para reiniciar o banco, basta apagar o arquivo `escola.db` (isso apagará todos os dados).
 
-## Autenticação no Google Cloud
+## Autenticação no Google Cloud Avançada.
 
 Para utilizar recursos do Google Cloud (como Cloud Run, Cloud SQL, Storage, etc.), é necessário autenticar sua conta localmente. Siga os passos abaixo:
 
