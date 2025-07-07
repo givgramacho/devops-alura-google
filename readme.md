@@ -118,7 +118,7 @@ gcloud run deploy --port=8000
 
 O banco de dados SQLite será criado automaticamente como `escola.db` na primeira execução. Para reiniciar o banco, basta apagar o arquivo `escola.db` (isso apagará todos os dados).
 
-## Autenticação no Google Cloud Avançada
+## Autenticação no Google Cloud Avançado
 
 Para utilizar recursos do Google Cloud (como Cloud Run, Cloud SQL, Storage, etc.), é necessário autenticar sua conta localmente. Siga os passos abaixo:
 
