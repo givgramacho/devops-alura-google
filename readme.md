@@ -9,7 +9,7 @@
   - [Usando Docker](#usando-docker)
   - [Usando Docker Compose](#usando-docker-compose)
   - [Como versionar seu projeto com Git e enviar para o GitHub](#como-versionar-seu-projeto-com-git-e-enviar-para-o-github)
-  - [Autenticando no Google Cloud](autenticando-no-google-cloud)
+  - [Autenticando no Google Cloud](#autenticando-no-google-cloud)
   - [Estrutura do Projeto](#estrutura-do-projeto)
   - [Autenticação no Google Cloud Avançado](#autenticação-no-google-cloud-avançado)
   - [Deploy no Cloud Run](#deploy-no-cloud-run)
